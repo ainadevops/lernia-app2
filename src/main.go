@@ -26,13 +26,20 @@ var albums = []album{
     {ID: "4", Title: "Lernia DevOps Songs", Artist: "Lernia DevOps Gang", Price: 1.99},
 }
 
+
 func main() {
     router := gin.Default()
+    router.GET("/", getIndex)
     router.GET("/albums", getAlbums)
     router.GET("/albums/:id", getAlbumByID)
     router.POST("/albums", postAlbums)
 
     router.Run(":8080")
+}
+
+func getIndex(c *gin.Context) {
+    c.Header("Content-Type", "text/html; charset=utf-8")
+    c.String(200, "<p>You need to visit <a href='/albums'>/albums</a> or <a href='/albums/1'>/albums/1</a> (where you can use 1,2,3 or 4).</p>")
 }
 
 // getAlbums responds with the list of all albums as JSON.
